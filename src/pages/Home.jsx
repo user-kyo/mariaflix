@@ -25,7 +25,8 @@ export default function Home() {
   const [touchStart, setTouchStart] = useState(0);
   const [refreshKey, setRefreshKey] = useState(0); // key to trigger animation
 
-  const PULL_THRESHOLD = 80;
+const PULL_THRESHOLD = 15 // as % of dynamic viewport height
+const pullThresholdPx = (PULL_THRESHOLD / 100) * window.innerHeight;  
   const REFRESH_DURATION = 1500; // ms
 
   // Hard-coded movies
@@ -71,7 +72,7 @@ export default function Home() {
   };
 
   const handleTouchEnd = () => {
-    if (y.get() > PULL_THRESHOLD && !refreshing) {
+    if (y.get() > pullThresholdPx && !refreshing) {
       setRefreshing(true);
 
       setTimeout(() => {
